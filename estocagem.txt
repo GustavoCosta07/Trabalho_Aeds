@@ -1,0 +1,4 @@
+mascaraInfantilEstampada;200;3,50;
+mascaraAdultaEstampada;50;7,40;
+mascaraInfantilLisa;70;4,30;
+mascaraAdultaLisa;30;3,50;
