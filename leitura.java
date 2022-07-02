@@ -127,10 +127,16 @@ public class leitura {
     }
 
     public static void exibe(String[][] x) {
-        System.out.println("  Tipo     Categoria  Estoque  Preço Código");
+        System.out.println("  Tipo     Categoria   Estoque  Preço  Código");
+        int contador =0;
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < x[i].length; j++) {
-
+                if (x[contador][2].length() != 7) {
+                    while (x[contador][2].length() != 9) {
+                        x[contador][2] += " ";
+                    }
+                    contador++;
+                }
                 System.out.print(x[i][j] + " | ");
                 if (j == 4) {
                     System.out.println();

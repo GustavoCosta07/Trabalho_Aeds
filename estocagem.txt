@@ -1,4 +1,4 @@
-adulto  ;estampada;192  ;2,50; 1 ;
-adulto  ;lisa     ;0    ;3,50; 2 ;
-infantil;estampada;40   ;3,20; 3 ;
-infantil;lisa     ;45   ;7,60; 4 ;
+adulto  ;estampada;999    ;2,50; 1 ;
+adulto  ;lisa     ;100    ;3,50; 2 ;
+infantil;estampada;40     ;3,20; 3 ;
+infantil;lisa     ;45     ;7,60; 4 ;
