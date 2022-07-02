@@ -18,7 +18,7 @@ public class leitura {
         } else if (opc == 2) {
             exibe(produtos);
         } else if (opc == 3) {
-            // fimDia();
+            fimDia(produtos);
         } else {
             System.out.println("Opção inválida");
         }
@@ -48,11 +48,11 @@ public class leitura {
         }
     }
 
-    // public static void fimDia(){
-    // relatorioEstoque();
-    // relatorioVendar();
-    // dias++;
-    // }
+    public static void fimDia(String[][] produtos) {
+        relatorioEstoque(produtos);
+        // relatorioVendar();
+        dias++;
+    }
 
     public static void venda(Scanner entrada, String[][] matriz) {
         System.out.println("Qual o código do produto ?");
@@ -60,10 +60,12 @@ public class leitura {
         int produtoEscolhido = entrada.nextInt();
         String produtoEscolhidoTratado = String.valueOf(produtoEscolhido);
         int contador = 0;
+        
         System.out.println("Concluir venda? se sim digite 1, se não digite 2");
         int confirm = entrada.nextInt();
-        if (confirm == 1) {
 
+
+        if (confirm == 1) {
             for (int i = 0; i < matriz.length; i++) {
                 if (matriz[contador][4].contains(produtoEscolhidoTratado)) {
 
@@ -72,24 +74,24 @@ public class leitura {
                     System.out.println("Quantidade que deseja vender: ");
                     int quantidade = entrada.nextInt();
                     if (quantidade >= 1) {
-                       
+
                         int substitui = Integer.parseInt(vetor);
                         if (substitui > 0) {
-                            System.out.println(substitui);
-                            substitui -= quantidade;
 
+                            substitui -= quantidade;
 
                             StringBuilder nome = new StringBuilder(substitui).append(substitui + "   ");
                             String nome2 = new String(nome);
-    
+
                             matriz[contador][2] = nome2;
-                            exibe(matriz);
-                            break; 
-                        }else {
+                            System.out.println("Venda feita com sucesso");
+                           // exibe(matriz);
+                            break;
+                        } else {
                             System.out.println("produto fora de estoque");
                         }
-                        
-                    }else {
+
+                    } else {
                         System.out.println("quantidade inválida");
                     }
 
