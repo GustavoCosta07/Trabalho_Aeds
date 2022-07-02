@@ -38,3 +38,4 @@ total: 120,00
 
 geração do relatório único formatado com true 
 atualizar estocagem marretada na função encerrar dia
+criar o mesmo arquivo ao final do dia

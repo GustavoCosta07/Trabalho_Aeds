@@ -1,10 +1,11 @@
 import java.util.Scanner;
 import java.io.*;
+import java.time.LocalDate;
 
 public class leitura {
-    public static int dias = 1;
+    public static String[][] produtos = new String[4][5];
 
-    public static void menu(Scanner ent, String[][] produtos) throws Exception {
+    public static void menu(Scanner ent) throws Exception {
         int opc;
         System.out.println("1-Fazer venda");
 
@@ -14,23 +15,23 @@ public class leitura {
         opc = ent.nextInt();
 
         if (opc == 1) {
-            venda(ent, produtos);
+            venda(ent);
         } else if (opc == 2) {
-            exibe(produtos);
+            exibe();
         } else if (opc == 3) {
-            fimDia(produtos);
+            fimDia();
         } else {
             System.out.println("Opção inválida");
         }
         if (opc != 3) {
             System.out.println();
-            menu(ent, produtos);
+            menu(ent);
         }
     }
 
-    public static void preencherMatrizEstoque(String[][] produtos) {
+    public static void preencherMatrizEstoque() {
         try {
-            File file = new File("estocagem.txt");
+            File file = new File("estoque.txt");
             Scanner ler = new Scanner(file);
             int contador = 0;
             while (ler.hasNextLine()) {
@@ -48,83 +49,88 @@ public class leitura {
         }
     }
 
-    public static void fimDia(String[][] produtos) {
-        relatorioEstoque(produtos);
-        // relatorioVendar();
-        dias++;
-        // ola
+    public static void atualizacaoEstoque() throws IOException {
+
+        File file = new File("estoque.txt");
+        FileWriter fw = new FileWriter(file);
+        PrintWriter pw = new PrintWriter(fw);
+
+        String body = "";
+
+        for (int i = 0; i < produtos.length; i++) {
+            for (int j = 0; j < produtos[i].length; j++) {
+                body += produtos[i][j] + ";";
+            }
+            body += "\n";
+        }
+        pw.print(body);
+        pw.close();
     }
 
-    public static void venda(Scanner entrada, String[][] matriz) {
+    public static void fimDia() throws IOException {
+        relatorioEstoque();
+        // relatorioVendas();
+    }
+
+    public static void venda(Scanner entrada) throws IOException {
         System.out.println("Qual o código do produto ?");
-        exibe(matriz);
+        exibe();
         int produtoEscolhido = entrada.nextInt();
-        String produtoEscolhidoTratado = String.valueOf(produtoEscolhido);
-        int contador = 0;
-        
+
+        if (produtoEscolhido > produtos.length || produtoEscolhido < 0) {
+            System.out.println("Codigo de produto inválido!");
+            return;
+        }
+
+        int quantidadeSalva = Integer.parseInt(produtos[produtoEscolhido - 1][3]);
+
+        System.out.println("Qual a quantidade ?");
+
+        int quantidade = entrada.nextInt();
+
+        if (quantidadeSalva <= 0) {
+            System.out.println("Produto indisponível");
+            return;
+        }
+
+        if (quantidade <= 0) {
+            System.out.println("Quantidade inválida!");
+            return;
+        }
+
+        if (quantidade > quantidadeSalva) {
+            System.out.println("Quantidade indisponível!");
+            return;
+        }
+
         System.out.println("Concluir venda? se sim digite 1, se não digite 2");
         int confirm = entrada.nextInt();
 
-
         if (confirm == 1) {
-            for (int i = 0; i < matriz.length; i++) {
-                if (matriz[contador][4].contains(produtoEscolhidoTratado)) {
-
-                    String vetor = matriz[contador][2].replaceAll("\\s+", "");
-
-                    System.out.println("Quantidade que deseja vender: ");
-                    int quantidade = entrada.nextInt();
-                    if (quantidade >= 1) {
-
-                        int substitui = Integer.parseInt(vetor);
-                        if (substitui > 0) {
-
-                            substitui -= quantidade;
-                            if (substitui >= 0 ) {
-                                StringBuilder nome = new StringBuilder(substitui).append(substitui + "   ");
-                                String nome2 = new String(nome);
-    
-                                matriz[contador][2] = nome2;
-                                System.out.println("Venda feita com sucesso");
-                               // exibe(matriz);
-                                break;
-                            }else {
-                                System.out.println("Quantidade escolhida maior do que disponivel no estoque");
-                            }
-                           
-                        } else {
-                            System.out.println("produto fora de estoque");
-                        }
-
-                    } else {
-                        System.out.println("quantidade inválida");
-                    }
-
-                }
-                contador++;
-            }
-        } else if (confirm == 2) {
-            System.out.println("operação cancelada");
-        } else {
-            System.out.println("dígito inválido");
+            produtos[produtoEscolhido - 1][3] = String.valueOf(quantidadeSalva - quantidade);
         }
+        atualizacaoEstoque();
 
     }
 
-    public static void relatorioEstoque(String[][] x) {
+    public static void relatorioEstoque() {
         try {
-            FileWriter pw = new FileWriter("relatorioEstoque.txt", true);
-            pw.write("\n" + "  Relatorio de estoque dia " + dias + "\n");
-            pw.write(" Tipo      Categoria  Estoque  " + "\n");
-            for (int i = 0; i < x.length; i++) {
-                for (int j = 0; j < x[i].length - 2; j++) {
+            FileWriter pw = new FileWriter("Relatório Estoque " + LocalDate.now().toString() + ".txt");
 
-                    pw.write(x[i][j] + " | ");
-                    if (j == 2) {
-                        pw.write("\n");
-                    }
-                }
+            String body = "|--------------------------------------------------|\n";
+
+            String leftAlignFormat = "| %-10s | %-10s | %-10s | %-10s|%n";
+            body += String.format(leftAlignFormat, "Codigo", "Tipo", "Categoria", "Estoque");
+
+            body += "|--------------------------------------------------|\n";
+
+            for (int i = 0; i < produtos.length; i++) {
+                body += String.format(leftAlignFormat, produtos[i]);
             }
+
+            body += "|--------------------------------------------------|\n";
+
+            pw.write(body);
 
             pw.close();
             System.out.println("Relatório feito com sucesso.");
@@ -133,29 +139,22 @@ public class leitura {
         }
     }
 
-    public static void exibe(String[][] x) {
-        System.out.println("  Tipo     Categoria   Estoque  Preço  Código");
-        
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[i].length; j++) {
-                if (x[i][2].length() != 7) {
-                    while (x[i][2].length() != 7) {
-                        x[i][2] += " ";
-                    }
-                }
-                System.out.print(x[i][j] + " | ");
-                if (j == 4) {
-                    System.out.println();
-                }
-            }
+    public static void exibe() {
+        String leftAlignFormat = "| %-10s | %-10s | %-10s | %-10s | %-10s |%n";
+        System.out.format("|----------------------------------------------------------------|%n");
+        System.out.format(leftAlignFormat, "Código", "Tipo", "Categoria", "Estoque", "Preço");
+        System.out.format("|----------------------------------------------------------------|%n");
+        for (int i = 0; i < produtos.length; i++) {
+            System.out.format(leftAlignFormat, produtos[i]);
         }
+        System.out.format("|----------------------------------------------------------------|%n");
     }
 
     public static void main(String[] args) throws Exception {
+
+        preencherMatrizEstoque();
         Scanner ent = new Scanner(System.in);
-        String[][] produtos = new String[4][5];
-        preencherMatrizEstoque(produtos);
-        menu(ent, produtos);
+        menu(ent);
         ent.close();
     }
 }
