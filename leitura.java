@@ -43,7 +43,6 @@ public class leitura {
                 contador++;
             }
             ler.close();
-
         } catch (Exception e) {
             System.out.println("erro -" + e.getMessage());
         }
@@ -53,6 +52,7 @@ public class leitura {
         relatorioEstoque(produtos);
         // relatorioVendar();
         dias++;
+        // ola
     }
 
     public static void venda(Scanner entrada, String[][] matriz) {
@@ -80,14 +80,18 @@ public class leitura {
                         if (substitui > 0) {
 
                             substitui -= quantidade;
-
-                            StringBuilder nome = new StringBuilder(substitui).append(substitui + "   ");
-                            String nome2 = new String(nome);
-
-                            matriz[contador][2] = nome2;
-                            System.out.println("Venda feita com sucesso");
-                           // exibe(matriz);
-                            break;
+                            if (substitui >= 0 ) {
+                                StringBuilder nome = new StringBuilder(substitui).append(substitui + "   ");
+                                String nome2 = new String(nome);
+    
+                                matriz[contador][2] = nome2;
+                                System.out.println("Venda feita com sucesso");
+                               // exibe(matriz);
+                                break;
+                            }else {
+                                System.out.println("Quantidade escolhida maior do que disponivel no estoque");
+                            }
+                           
                         } else {
                             System.out.println("produto fora de estoque");
                         }
@@ -130,10 +134,15 @@ public class leitura {
     }
 
     public static void exibe(String[][] x) {
-        System.out.println("  Tipo     Categoria  Estoque  Preço Código");
+        System.out.println("  Tipo     Categoria   Estoque  Preço  Código");
+        
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < x[i].length; j++) {
-
+                if (x[i][2].length() != 7) {
+                    while (x[i][2].length() != 7) {
+                        x[i][2] += " ";
+                    }
+                }
                 System.out.print(x[i][j] + " | ");
                 if (j == 4) {
                     System.out.println();

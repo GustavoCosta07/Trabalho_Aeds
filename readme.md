@@ -35,3 +35,6 @@ vendas.csv
 total de máscara vendidas: X
 total: 120,00
 
+
+geração do relatório único formatado com true 
+atualizar estocagem marretada na função encerrar dia
