@@ -1,7 +1,0 @@
-
-  Relatorio de estoque dia 1
- Tipo      Categoria  Estoque  
-adulto   | estampada | 192   | 
-adulto   | lisa      | 20    | 
-infantil | estampada | 40    | 
-infantil | lisa      | 10    | 
