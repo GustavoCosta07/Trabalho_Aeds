@@ -1,4 +1,4 @@
-mascaraInfantilEstampada;200;3,50;
-mascaraAdultaEstampada;50;7,40;
-mascaraInfantilLisa;70;4,30;
-mascaraAdultaLisa;30;3,50;
+adulto  ;estampada;200  ;2,50; 1 ;
+adulto  ;lisa     ;20   ;3,50; 2 ;
+infantil;estampada;40   ;3,20; 3 ;
+infantil;lisa     ;10   ;7,60; 4 ;
