@@ -1,3 +1,4 @@
+// Classe onde será implementado os métodos de venda
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -6,7 +7,7 @@ public class Venda {
     private String caminhoArquivo = "vendas.txt";
 
     public void salvarVenda(String tipo, String categoria, String quantidade, String produto) throws IOException {
-
+        //Este procedimento está gerando o relatório de venda individual sem encerrar o programa
         try {
             File file = new File(this.caminhoArquivo);
             FileWriter fw = new FileWriter(file, true);
@@ -24,6 +25,8 @@ public class Venda {
     
 
     public void gerarRelatorio() {
+        // Neste procedimento estamos criando o relatório final de venda com a quantidade vendida de cada produto e 
+        // a quantidade total de lucros no dia  
         float total = 0.0f;
         try {
             File file = new File(this.caminhoArquivo);

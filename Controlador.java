@@ -1,3 +1,4 @@
+// Classe onde será implementado os métodos de controle 
 import java.util.Scanner;
 
 public class Controlador {
@@ -11,7 +12,10 @@ public class Controlador {
         this.venda = venda;
     }
 
-    public void executarVenda () {
+    public void executarVenda () { 
+        //Neste procedimento estamos fazendo a lógica de vender o produto e decrementar do estoque bruto chamando os 
+        //procedimentos das classes auxiliadoras 
+
         System.out.println("Digite o código do produto: ");
         estoque.exibirProdutos();
         int codigoProduto = entrada.nextInt();
@@ -35,10 +39,14 @@ public class Controlador {
     }
 
     public void exibirProdutos() {
+        // Este procedimento está somente exibindo pro produtor o estoque com as informações necessárias para executar
+        // a venda
         this.estoque.exibirProdutos();
     }
 
     public void gerarRelatorio() {
+        //Este procedimento está gerando o relatório de venda individual sem encerrar o programa e também gerando o re
+        // latório de estoque final conforme requisito do projeto
         this.estoque.gerarRelatorio();
         this.venda.gerarRelatorio();
     }
