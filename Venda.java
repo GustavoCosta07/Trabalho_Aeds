@@ -21,6 +21,7 @@ public class Venda {
         }
 
     }
+    
 
     public void gerarRelatorio() {
         float total = 0.0f;
