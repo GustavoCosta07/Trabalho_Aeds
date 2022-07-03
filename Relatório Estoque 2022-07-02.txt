@@ -1,8 +1,8 @@
 |--------------------------------------------------|
 | Codigo     | Tipo       | Categoria  | Estoque   |
 |--------------------------------------------------|
-| 1          | adulto     | estampada  | 10        |
-| 2          | adulto     | lisa       | 45        |
+| 1          | adulto     | estampada  | 6         |
+| 2          | adulto     | lisa       | 55        |
 | 3          | infantil   | estampada  | 30        |
 | 4          | infantil   | lisa       | 12        |
 |--------------------------------------------------|

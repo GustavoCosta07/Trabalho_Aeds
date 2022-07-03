@@ -12,20 +12,22 @@ public class Controlador {
     }
 
     public void executarVenda () {
-        System.out.println("Qual o código do produto ?");
+        System.out.println("Digite o código do produto: ");
         estoque.exibirProdutos();
         int codigoProduto = entrada.nextInt();
         try {
             estoque.validarCodigoProduto(codigoProduto);
-            System.out.println("Qual a quantidade ?");
+            System.out.print("Digite a quantidade: ");
             int quantidade = entrada.nextInt();
+            System.out.println();
             estoque.validarQuantidadeEstoque(codigoProduto, quantidade);
-            System.out.println("Concluir venda? se sim digite 1, se não digite 2");
+            System.out.println("Digite 1 para concluir venda ou digite 2 para cancelar");
             int confirm = entrada.nextInt();
             if (confirm == 1) {
                 estoque.atualizarQuantidadeProduto(codigoProduto, quantidade);
                 String produto [] = estoque.obterProdutoPorCodigo(codigoProduto);
                 venda.salvarVenda(produto[1], produto[2], String.valueOf(quantidade), produto[4]);
+                System.out.println("Venda feita com sucesso.");
             }
         } catch (Exception error) {
             System.err.println(error.getMessage());
